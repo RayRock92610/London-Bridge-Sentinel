@@ -1,5 +1,5 @@
 #!/bin/bash
-cd ~/London-Bridge-Sentinel
+cd ~/kesselflow-witchhunter/London-Bridge-Sentinel
 while true; do
     # Run python silently and redirect all errors to a black hole
     python3 src/sentinel.py > /dev/null 2>&1
